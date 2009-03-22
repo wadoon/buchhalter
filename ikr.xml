@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<account-frame>
+  <account number="8010" sname="SBK" cname="Schlussbilanzkonto">
+    <account number="0530" sname="BGA" cname="Betriebs und Geschäftsaustattung" />
+    <account number="0700" sname="MA"  cname="Maschinen" />
+    <account number="0840" sname="FP"  cname="Fuhrpark" />
+    <account number="2000" sname="R"   cname="Rohstoffe" />
+    <account number="2010" sname="F"   cname="Fremdbauteile" />
+    <account number="2020" sname="H"   cname="Hilfsstoffe"/>
+    <account number="2030" sname="B"   cname="Betriebsstoffe"/>
+    <account number="2400" sname="FO"  cname="Forderungen"/>
+    <account number="2800" sname="BK"  cname="Bank"/>
+    <account number="2880" sname="KA"  cname="Kasse"/>	
+    <account number="3000" sname="EK"  cname="Eigenkapital"/>
+    <account number="3001" sname="P"   cname="Privatkonto"/>
+    <account number="4400" sname="VE"  cname="Verbindlichkeiten"/>
+    <account number="4800" sname="UST" cname="Umsatzsteuer"/>
+  </account>
+  <account number="8000" sname="EBK" cname="Eröffnungsbilanzkonto"/> 
+</account-frame>

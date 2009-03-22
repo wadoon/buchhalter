@@ -1,0 +1,18 @@
+0530	BVG	Betriebs und Geschäftsaustattung
+0700	MA	Maschinen	
+0840	FP	Fuhrpark	
+2000	R	Rohstoffe	
+2010	F	Fremdbauteile	
+2020	H	Hilfsstoffe	
+2030	B	Betriebsstoffe	
+2400	FO	Forderungen	
+2800	BK	Bank	
+2880	KA	Kasse	
+3000	EK	Eigenkapital	
+3001	P	Privatkonto	
+4400	VE	Verbindlichkeiten	
+4800	UST	Umsatzsteuer	
+8000	EBK	Eröffnungsbilanzkonto	
+8010	SBK	Schlussbilanzkonto	
+==
+8010 0530 0700 0840 2000 2010 2020 2400 2800 2880 3000 3001 4400 4800 4800
