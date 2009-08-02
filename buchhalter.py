@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from __future__ import with_statement
 from thread import allocate  as create_lock
 
@@ -197,6 +198,7 @@ if __name__ == "__main__":
     
     if opts.accfile:
         accounts = loadAccountXmlFile(opts.accfile)
+	print accounts
     else:
         accounts = TAccountBook()
 
