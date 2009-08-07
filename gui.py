@@ -7,6 +7,7 @@ from buchhalter import *
 from buchhalter.ui import *
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyQt4 import QtWebKit
 
 from ply.lex import LexError
 from ply.yacc import YaccError,  SyntaxError
@@ -97,6 +98,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.statusLabel = QtGui.QLabel(statusbar)
         statusbar.addPermanentWidget(self.statusLabel)
         self.setStatus = self.statusLabel.setText
+
+        self.webJournal.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
 
 #        self.connect(self.btnBook, QtCore.SIGNAL("clicked()"),
 #                     self, QtCore.SLOT("accept()"))
