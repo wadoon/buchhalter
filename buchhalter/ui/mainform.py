@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainform.ui'
 #
-# Created: Sat Aug  1 02:57:46 2009
+# Created: Fri Aug  7 07:38:29 2009
 #      by: PyQt4 UI code generator 4.4.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,10 +74,10 @@ class Ui_MainWindow(object):
         self.lblJournal.setObjectName("lblJournal")
         self.horizontalLayout_4.addWidget(self.lblJournal)
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
-        self.listJournal = QtGui.QTableView(self.centralwidget)
-        self.listJournal.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.listJournal.setObjectName("listJournal")
-        self.verticalLayout_2.addWidget(self.listJournal)
+        self.webJournal = QtWebKit.QWebView(self.centralwidget)
+        self.webJournal.setUrl(QtCore.QUrl("about:blank"))
+        self.webJournal.setObjectName("webJournal")
+        self.verticalLayout_2.addWidget(self.webJournal)
         self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
@@ -108,12 +108,11 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.label.setBuddy(self.txtBookSentence)
-        self.lblJournal.setBuddy(self.listJournal)
+        self.lblJournal.setBuddy(self.webJournal)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.txtBookSentence, self.btnBook)
-        MainWindow.setTabOrder(self.btnBook, self.listJournal)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
@@ -128,3 +127,4 @@ class Ui_MainWindow(object):
         self.actionShow_accounts.setText(QtGui.QApplication.translate("MainWindow", "Show accounts", None, QtGui.QApplication.UnicodeUTF8))
         self.actionClose.setText(QtGui.QApplication.translate("MainWindow", "Close", None, QtGui.QApplication.UnicodeUTF8))
 
+from PyQt4 import QtWebKit

@@ -176,16 +176,18 @@
            <string>Journal</string>
           </property>
           <property name="buddy">
-           <cstring>listJournal</cstring>
+           <cstring>webJournal</cstring>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QTableView" name="listJournal">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
+       <widget class="QWebView" name="webJournal">
+        <property name="url">
+         <url>
+          <string>about:blank</string>
+         </url>
         </property>
        </widget>
       </item>
@@ -245,11 +247,20 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>txtBookSentence</tabstop>
   <tabstop>btnBook</tabstop>
-  <tabstop>listJournal</tabstop>
  </tabstops>
  <resources/>
  <connections/>
+ <slots>
+  <slot>slot1()</slot>
+ </slots>
 </ui>

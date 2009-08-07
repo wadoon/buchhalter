@@ -1,0 +1,12 @@
+build
+dist
+*~
+*.pyc
+*.pyo
+doc/_build
+.eric4project/ 
+ropeproject/ 
+buchhalter.e4p 
+parser.out 
+core* 
+parsetab.py

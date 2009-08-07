@@ -4,7 +4,7 @@ from __future__ import with_statement
 from thread import allocate  as create_lock
 
 
-from buchhalter import * 
+from buchhalter import *
 from buchhalter.util import *
 from buchhalter.exceptions import *
 
@@ -32,7 +32,7 @@ class AccountingShell(cmd.Cmd):
         self.do_ro=self.do_rollback
         self.do_co=self.do_commit
         self.do_q =self.do_quit
-        
+
     def do_quit(self, commands):
         if self.book_mode:
             print 'a account record is still open'
@@ -60,13 +60,13 @@ class AccountingShell(cmd.Cmd):
     def do_defineAccount(self, args):
         args = args.split(' ')
 
-    
+
     def do_revert(self,args):
         args = args.split(' ')
         for arg in [int(x) for x in args]:
-            print 'Revert %d' % arg 
+            print 'Revert %d' % arg
             del self.journal[arg]
-            
+
     def do_finish(self, line):
         self.journal.finish()
 
@@ -74,12 +74,12 @@ class AccountingShell(cmd.Cmd):
         filename = line.strip()+".pickle"
         with open(filename, 'w') as fh:
             pkl.dump(self.journal, fh)
-        
+
     def do_load(self,line):
         filename = line.strip()+".pickle"
         with open(filename) as fh:
             self.journal = pkl.load(fh)
-        
+
 
     def do_view(self, line ):
         args=line.split(' ')
@@ -99,7 +99,7 @@ class AccountingShell(cmd.Cmd):
             self.cur_acc_cmd = AccountingRecord()
 
     def default(self, param):
-        if sys.stdin.closed: return 
+        if sys.stdin.closed: return
         if self.book_mode:
             try:
                 usrInput = self.parseInput(param)
@@ -108,23 +108,23 @@ class AccountingShell(cmd.Cmd):
                 print e.message, " :: line is ingored"
             except  AbortInputException, e:
                 pass
-        
+
     def complete_loadAccounts(self, text, line, begidx, endidx ):
             list = fnmatch.filter( os.listdir(), "%s*" % text)
             print 'no matching "%s*"'  % text
-            return list 
+            return list
 
     def _close_book_mode(self):
         """returns out the book mode"""
         self.book_mode = False
         self.cur_acc_cmd = None
-        self.prompt = self.normal_prompt    
+        self.prompt = self.normal_prompt
 
 
     def complete_revert(self, text, line, begidx, endidx):
         return fnmatch.filter(list(self.journal),"%s*"%text)
 
-    def complete_view(self, text, line, begidx, endidx ):  
+    def complete_view(self, text, line, begidx, endidx ):
         acc_no = [x.number for x in self.accounts ]
         acc_no+=('journal',)
 
@@ -132,7 +132,7 @@ class AccountingShell(cmd.Cmd):
         return list
 
     def complete_finish(self, text,line, begidx, endidx):
-        return fnmatch.filter( [x.number for x in self.accounts], 
+        return fnmatch.filter( [x.number for x in self.accounts],
                                "%s*" % text)
 
     def view_journal(self):
@@ -189,18 +189,18 @@ If a account number is given the account information is printed out"""
 
 if __name__ == "__main__":
     import optparse
-    
+
     options = optparse.OptionParser()
     options.add_option('-a','--acount-file', action="store", dest="accfile")
 
 
     opts,args = options.parse_args()
-    
+
     if opts.accfile:
         accounts = loadAccountXmlFile(opts.accfile)
-	print accounts
+        print accounts
     else:
         accounts = TAccountBook()
 
     AccountingShell(accounts).cmdloop()
-    
+
