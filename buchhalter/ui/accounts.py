@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'accounts.ui'
 #
-# Created: Sat Aug  1 02:57:45 2009
-#      by: PyQt4 UI code generator 4.4.4
+# Created: Sat Sep 12 18:28:25 2009
+#      by: PyQt4 UI code generator 4.5.2
 #
 # WARNING! All changes made in this file will be lost!
 

@@ -10,8 +10,6 @@ from PyQt4.QtGui import *
 
 import  buchhalter.util as util
                        
-
-
 class JournalViewModel(QAbstractTableModel): 
     def __init__(self, journal, parent, *args): 
         QAbstractTableModel.__init__(self, parent, *args) 
@@ -81,20 +79,31 @@ class JournalViewModel(QAbstractTableModel):
 
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self, accfile=None):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
 
         self.journal = Journal(TAccountBook())
-        self.on_actionLoad_account_file_triggered()
 
-        self.journalModel = JournalViewModel( self.journal, self.listJournal)
-        self.listJournal.setModel( self.journalModel )
+#        self.journalModel = JournalViewModel( self.journal, self.listJournal)
+#        self.listJournal.setModel( self.journalModel )
 
         statusbar = self.statusBar()
         self.statusLabel = QtGui.QLabel(statusbar)
         statusbar.addPermanentWidget(self.statusLabel)
         self.setStatus = self.statusLabel.setText
+
+
+        if accfile:
+            print accfile
+            accounts = util.loadAccountXmlFile(accfile)
+            self.journal.accounts = accounts
+            print "load accounts: %s " % str(accounts)
+        else:
+            self.on_actionLoad_account_file_triggered()
+        
+        self.actionShow_accounts.toggled.connect(
+            self.toggleAccounts)
 
 #        self.connect(self.btnBook, QtCore.SIGNAL("clicked()"),
 #                     self, QtCore.SLOT("accept()"))
@@ -141,6 +150,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def on_actionAbout_triggered(self):
         a = AboutDialog()
         a.exec_()
+    
+    @pyqtSignature('')
+    def toggleAccounts(self, visible):
+        print "test", visible
+        self.dockWidget.setVisible( visible)
+#        self.actionShow_accounts.isChecked(self.dockWidget.isVisible())
+        print self.dockWidget.isVisible()
+
 
     @pyqtSignature('')
     def on_actionLoad_account_file_triggered(self):
@@ -148,7 +165,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                          "Open Account File", ".", "All Files (*.*)")
 
         if not fileName:
-            setStatus("user cancel")
+            self.setStatus("user cancel")
             return
         
         try:
@@ -173,7 +190,16 @@ class AboutDialog(QtGui.QDialog, Ui_About):
 
     
 if __name__=='__main__':
-    app = QtGui.QApplication(sys.argv)
-    ui = MainWindow()
+    import optparse
+    opts  = optparse.OptionParser()
+
+    app = QtGui.QApplication( sys.argv )
+  
+    o,a = opts.parse_args(sys.argv);
+    if a:
+        ui = MainWindow(a[1])
+    else:
+        ui = MainWindow()
     ui.show()
+    
     sys.exit(app.exec_())
