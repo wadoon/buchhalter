@@ -84,12 +84,11 @@ class JournalViewModel(QAbstractTableModel):
 
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self, accfile=None):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
 
         self.journal = Journal(TAccountBook())
-        self.on_actionLoad_account_file_triggered()
 
         #self.journalModel = JournalViewModel( self.journal, self.listJournal)
         #self.listJournal.setModel( self.journalModel )
@@ -145,7 +144,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             result = util.parseSentence(book)
         except YaccError, e:
             box = QtGui.QMessageBox()
+            box.setText(str(e))        try:
+            book = self.txtBookSentence.document().toPlainText()
+            book = str(book)
+            result = util.parseSentence(book)
+        except YaccError, e:
+            box = QtGui.QMessageBox()
             box.setText(str(e))
+            box.setStandardButtons(QMessageBox.Ok )
+            box.setDefaultButton(QMessageBox.Ok);
+            box.exec_()
+            raise
+            return
+
+        for line in result:
+            print( line )
+            type,account, val = line
+            if   type == 'ASSET':
+                acc.asset( account, val )
+            elif type == "DEBIT":
+                acc.debit(account, val )
+
+
             box.setStandardButtons(QMessageBox.Ok )
             box.setDefaultButton(QMessageBox.Ok);
             box.exec_()
@@ -164,11 +184,30 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.txtBookSentence.document().clear()
         self.journal.book(acc)
         self.updateJournalView();
+        self.txtBookSentence.document().clear()
+        self.journal.book(acc)
+        self.updateJournalView();
 
     @pyqtSignature('')
     def on_actionAbout_triggered(self):
         a = AboutDialog()
         a.exec_()
+    
+    @pyqtSignature('')
+    def toggleAccounts(self, visible):
+        print "test", visible
+        self.dockWidget.setVisible( visible)
+#        self.actionShow_accounts.isChecked(self.dockWidget.isVisible())
+        print self.dockWidget.isVisible()
+
+    
+    @pyqtSignature('')
+    def toggleAccounts(self, visible):
+        print "test", visible
+        self.dockWidget.setVisible( visible)
+#        self.actionShow_accounts.isChecked(self.dockWidget.isVisible())
+        print self.dockWidget.isVisible()
+
 
     @pyqtSignature('')
     def on_actionLoad_account_file_triggered(self):
@@ -176,7 +215,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                          "Open Account File", ".", "All Files (*.*)")
 
         if not fileName:
-            setStatus("user cancel")
+            self.setStatus("user cancel")
             return
 
         try:
@@ -201,7 +240,21 @@ class AboutDialog(QtGui.QDialog, Ui_About):
 
 
 if __name__=='__main__':
+#ifdef NEW
+    import optparse
+    opts  = optparse.OptionParser()
+
+    app = QtGui.QApplication( sys.argv )
+  
+    o,a = opts.parse_args(sys.argv);
+    if a:
+        ui = MainWindow(a[1])
+    else:
+        ui = MainWindow()
+#else /* not NEW */
     app = QtGui.QApplication(sys.argv)
     ui = MainWindow()
+#endif /* not NEW */
     ui.show()
+    
     sys.exit(app.exec_())

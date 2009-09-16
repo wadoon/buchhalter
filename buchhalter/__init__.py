@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import with_statement
 from thread import allocate  as create_lock
 
@@ -6,6 +7,8 @@ import os
 import sys
 import fnmatch
 import codecs
+
+from itertools import chain
 
 __author__="Alexander Weigl"
 __email__="alexweigl@gmail.com"
@@ -29,8 +32,11 @@ class TAccountTemplate(object):
     def __hash__(self):
         return hash(self.number)
 
+    def __cmp__(self,other):
+	return cmp(self.number,other.number)
+
     def __eq__(self, other):
-        print "__eq__", self, other
+#        print "__eq__", self, other
         t = type(other)
         if   t is int:
             return self.number == t
@@ -47,12 +53,13 @@ class TAccount(object):
         self.asset=[]
 
     def book(self, no,  acc_cmd):
-        
         for accNo, value  in acc_cmd._debit:
+#	    print repr(accNo) , repr(self.template.number),accNo == self.template.number
             if accNo == self.template.number:
                 self.debit.append( (no,value) )
         
         for accNo, value in acc_cmd._asset:
+#	    print accNo , self.template.number,accNo == self.template.number
             if accNo == self.template.number:
                 self.asset.append( (no, value) )        
 
@@ -62,10 +69,7 @@ class TAccount(object):
         return self.sumSide(self.asset)
 
     def sumSide(self,side):
-        sum = 0
-        for no,value in side:
-            sum += value
-        return sum
+	return sum(map(lambda x:x[1], side))        
 
     def finishAccount(self):
         """
@@ -100,7 +104,7 @@ class TAccount(object):
         return acc
 
     def __str__(self):        
-        head = str(self.template).center(35)        
+        head = unicode(self.template).center(35)        
         out = "S"+head+"H\n"
         out += ( "_" * 37 ) + "\n"
 
@@ -137,8 +141,8 @@ class TAccount(object):
                    
 
 class TAccountBook(set):
-    def __init__(self): 
-        set.__init__(self)
+    def __init__(self,lis=()): 
+        set.__init__(self,lis)
         self.finishWay = []
 
     def __getitem__(self, key):
@@ -160,6 +164,9 @@ class TAccountBook(set):
         self.taccounts.remove(k)
         del k
 
+    def findSiblings(self,rootNo):
+	return [ acc for acc in self if acc.parent==rootNo ]
+
 class AccountingRecord(object):
     def __init__(self, debit=None , asset=None ):
             self._debit   = debit if debit else []
@@ -173,11 +180,11 @@ class AccountingRecord(object):
 
 
     def is_valid(self):
-        sum  = lambda list: reduce(   lambda x, y: x+y, [ x[1] for x in list ] )
+        #sum  = lambda list: reduce(   lambda x, y: x+y, [ x[1] for x in list ] )
         return bool( sum(self._debit) - sum(self._asset) )
 
     def __bool__(self):
-        return is_valid()
+        return self.is_valid()
 
     def __str__(self):
         out = '';
@@ -215,7 +222,14 @@ class Journal(object):
 
     def book(self, bookcmd):
         if not bookcmd:
-            raise BaseException("book command is not valid")
+            raise BaseException("book command is not valid: \n" + str(bookcmd) )
+	
+	nums   = [ acc.number for acc in self.accounts ]
+	inv_no = [ no for no,val in chain(bookcmd._asset, bookcmd._debit) if no not in nums]
+
+	if len(inv_no) > 0:
+	    raise BaseException("record contains invalid accounts (%s)" % str(inv_no) )
+
         no = self.auto_inc()
         self.storage.append( ( no ,  bookcmd )  )
         return no
@@ -223,12 +237,14 @@ class Journal(object):
     def __iter__(self):
         return iter(self.storage)
 
-    def finish(self):
-        import buchhalter.util
-        accounts = [ acc for acc in self.accounts.finishWay ]
-        for account in accounts:
+    def finish(self):        
+        for account in self.accounts.finishWay:
+	   # print "finish: ",account
             acc = self.getAccount(account)
-            self.book( acc.finishAccount() )
+	    #print unicode(acc)
+	    rec = acc.finishAccount()
+	    if rec is not None:
+		self.book( acc.finishAccount() )
 
     def getAccount(self, no):
          acc = TAccount(self.accounts[no])

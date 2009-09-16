@@ -1,3 +1,4 @@
+<<<<<<< HEAD:.gitignore
 build
 dist
 *~
@@ -10,3 +11,8 @@ buchhalter.e4p
 parser.out 
 core* 
 parsetab.py
+=======
+*.pyc
+
+*.pyo
+>>>>>>> 84dff1d2c913a846e0639cbc3e5dc09c68a242ab:.gitignore

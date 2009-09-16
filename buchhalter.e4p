@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-4.6.dtd">
+<!-- eric4 project file for project buchhalter -->
+<!-- Saved: 2009-08-07, 07:44:17 -->
+<!-- Copyright (C) 2009 Alexander Weigl, alexweigl@gmail.com -->
+<Project version="4.6">
+  <Language>en</Language>
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <ProjectType>Qt4</ProjectType>
+  <Description></Description>
+  <Version>0.1</Version>
+  <Author>Alexander Weigl</Author>
+  <Email>alexweigl@gmail.com</Email>
+  <Sources>
+    <Source>gui.py</Source>
+    <Source>buchhalter/ui/accounts.py</Source>
+    <Source>buchhalter/ui/mainform.py</Source>
+    <Source>buchhalter/ui/__init__.py</Source>
+    <Source>buchhalter/ui/about.py</Source>
+    <Source>buchhalter/__init__.py</Source>
+    <Source>buchhalter/exceptions.py</Source>
+    <Source>buchhalter/util.py</Source>
+    <Source>buchhalter.py</Source>
+    <Source>setup.py</Source>
+    <Source>buchhalter/parser.py</Source>
+  </Sources>
+  <Forms>
+    <Form>buchhalter/ui/about.ui</Form>
+    <Form>buchhalter/ui/mainform.ui</Form>
+    <Form>buchhalter/ui/accounts.ui</Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Resources>
+  </Resources>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+  </Others>
+  <MainScript>gui.py</MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.qrc" type="RESOURCES" />
+  </FiletypeAssociations>
+  <LexerAssociations>
+    <LexerAssociation pattern="*.ui" lexer="XML" />
+  </LexerAssociations>
+</Project>

@@ -8,10 +8,17 @@ import sys
 #   2300    25,00
 #   an 5000 45,00
 
-tokens = ("FLOAT",  "SEPERATOR",  \
-    "ASSET_IDENTIFIER",  "INTEGER")
+tokens = ("FLOAT",  "SEPERATOR", "IDENTIFER", \
+    "ASSET_IDENTIFIER",  "INTEGER", )
+
 t_SEPERATOR ="[ \n\t\s]+"
 t_ASSET_IDENTIFIER = r'(an|to){1}'
+
+
+def t_IDENTIFER(t):
+    r'[A-Za-z]+'
+    t.value=str(t.value)
+    return t
 
 def t_FLOAT(t):
     r'[0-9]+[,.][0-9]*'
@@ -47,8 +54,10 @@ def p_num(t):
 
 
 def p_debit(t):
-    r"""debit : INTEGER SEPERATOR num"""
-    t[0] = ["DEBIT", str( t[1] ), t[3] ]
+    r"""debit : IDENTIFER SEPERATOR num
+	      | INTEGER   SEPERATOR num"""
+    t[0] = ["DEBIT",  str(t[1]) , t[3] ]
+    print t
     return t
 
 def p_asset(t):
@@ -82,8 +91,8 @@ def p_accsentenceTop(t):
 start = 'accsentenceTop'
 #start="asset"
 
-lex.lex(debug=0)
-yacc.yacc(debug=0)
+lex.lex(debug=1)
+yacc.yacc(debug=1)
 
 if __name__ == "__main__":
     import sys
