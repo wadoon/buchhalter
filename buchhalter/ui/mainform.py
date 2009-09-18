@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainform.ui'
 #
-# Created: Wed Sep 16 14:38:17 2009
+# Created: Fri Sep 18 17:26:58 2009
 #      by: PyQt4 UI code generator 4.5.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -131,16 +131,22 @@ class Ui_MainWindow(object):
         self.dockTAccount.setObjectName("dockTAccount")
         self.dockWidgetContents_2 = QtGui.QWidget()
         self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
-        self.gridLayout_3 = QtGui.QGridLayout(self.dockWidgetContents_2)
+        self.gridLayout_4 = QtGui.QGridLayout(self.dockWidgetContents_2)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.gridLayout_3 = QtGui.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.btnTAccViewRef = QtGui.QPushButton(self.dockWidgetContents_2)
+        self.btnTAccViewRef.setObjectName("btnTAccViewRef")
+        self.gridLayout_3.addWidget(self.btnTAccViewRef, 0, 0, 1, 1)
+        self.btnExportAccounts = QtGui.QPushButton(self.dockWidgetContents_2)
+        self.btnExportAccounts.setObjectName("btnExportAccounts")
+        self.gridLayout_3.addWidget(self.btnExportAccounts, 0, 1, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout_3, 0, 0, 1, 1)
         self.viewAccounts = QtWebKit.QWebView(self.dockWidgetContents_2)
         self.viewAccounts.setMinimumSize(QtCore.QSize(231, 0))
         self.viewAccounts.setUrl(QtCore.QUrl("about:blank"))
         self.viewAccounts.setObjectName("viewAccounts")
-        self.gridLayout_3.addWidget(self.viewAccounts, 1, 0, 1, 1)
-        self.btnTAccViewRef = QtGui.QPushButton(self.dockWidgetContents_2)
-        self.btnTAccViewRef.setObjectName("btnTAccViewRef")
-        self.gridLayout_3.addWidget(self.btnTAccViewRef, 0, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.viewAccounts, 1, 0, 1, 1)
         self.dockTAccount.setWidget(self.dockWidgetContents_2)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockTAccount)
         self.actionAbout = QtGui.QAction(MainWindow)
@@ -169,6 +175,8 @@ class Ui_MainWindow(object):
         self.actionTAccount_View.setCheckable(True)
         self.actionTAccount_View.setVisible(True)
         self.actionTAccount_View.setObjectName("actionTAccount_View")
+        self.actionExport_Accounts = QtGui.QAction(MainWindow)
+        self.actionExport_Accounts.setObjectName("actionExport_Accounts")
         self.menuFile.addAction(self.actionLoad)
         self.menuFile.addAction(self.actionSave)
         self.menuFile.addSeparator()
@@ -181,6 +189,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout_Qt)
         self.menuBook.addAction(self.actionExport_Journal)
+        self.menuBook.addAction(self.actionExport_Accounts)
         self.menuBook.addSeparator()
         self.menuBook.addAction(self.actionFinish)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -194,11 +203,13 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.actionTAccount_View, QtCore.SIGNAL("toggled(bool)"), self.dockTAccount.setVisible)
         QtCore.QObject.connect(self.actionShow_accounts, QtCore.SIGNAL("toggled(bool)"), self.dockAccounts.setVisible)
         QtCore.QObject.connect(self.actionExport_Journal, QtCore.SIGNAL("triggered()"), self.btnExportJournal.click)
+        QtCore.QObject.connect(self.actionExport_Accounts, QtCore.SIGNAL("triggered()"), self.btnExportAccounts.click)
+        QtCore.QObject.connect(self.actionClose, QtCore.SIGNAL("triggered()"), MainWindow.close)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.txtBookSentence, self.btnBook)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Buchhalter", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setStyleSheet(QtGui.QApplication.translate("MainWindow", "font: 14pt sans-serif bold;", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Buchungssatz", None, QtGui.QApplication.UnicodeUTF8))
         self.btnBook.setText(QtGui.QApplication.translate("MainWindow", "Buchen", None, QtGui.QApplication.UnicodeUTF8))
@@ -211,6 +222,7 @@ class Ui_MainWindow(object):
         self.treeAccounts.setSortingEnabled(True)
         self.dockTAccount.setWindowTitle(QtGui.QApplication.translate("MainWindow", "TAccount View", None, QtGui.QApplication.UnicodeUTF8))
         self.btnTAccViewRef.setText(QtGui.QApplication.translate("MainWindow", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnExportAccounts.setText(QtGui.QApplication.translate("MainWindow", "Export Accounts", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLoad_account_file.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLoad_account_file.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+Shift+C", None, QtGui.QApplication.UnicodeUTF8))
@@ -229,5 +241,6 @@ class Ui_MainWindow(object):
         self.actionAbout_Qt.setText(QtGui.QApplication.translate("MainWindow", "About Qt", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTAccount_View.setText(QtGui.QApplication.translate("MainWindow", "&TAccount View", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTAccount_View.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+T", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExport_Accounts.setText(QtGui.QApplication.translate("MainWindow", "Export Accounts", None, QtGui.QApplication.UnicodeUTF8))
 
 from PyQt4 import QtWebKit

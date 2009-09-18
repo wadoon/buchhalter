@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Buchhalter</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -340,6 +340,7 @@
      <string>&amp;Book</string>
     </property>
     <addaction name="actionExport_Journal"/>
+    <addaction name="actionExport_Accounts"/>
     <addaction name="separator"/>
     <addaction name="actionFinish"/>
    </widget>
@@ -413,7 +414,25 @@
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
-    <layout class="QGridLayout" name="gridLayout_3">
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btnTAccViewRef">
+         <property name="text">
+          <string>Refresh</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btnExportAccounts">
+         <property name="text">
+          <string>Export Accounts</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="1" column="0">
       <widget class="QWebView" name="viewAccounts">
        <property name="minimumSize">
@@ -426,13 +445,6 @@
         <url>
          <string>about:blank</string>
         </url>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="btnTAccViewRef">
-       <property name="text">
-        <string>Refresh</string>
        </property>
       </widget>
      </item>
@@ -531,6 +543,11 @@
     <bool>true</bool>
    </property>
   </action>
+  <action name="actionExport_Accounts">
+   <property name="text">
+    <string>Export Accounts</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -552,8 +569,8 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>468</x>
-     <y>301</y>
+     <x>954</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -604,8 +621,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>606</x>
-     <y>301</y>
+     <x>954</x>
+     <y>323</y>
     </hint>
    </hints>
   </connection>
@@ -620,8 +637,40 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>434</x>
-     <y>209</y>
+     <x>721</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExport_Accounts</sender>
+   <signal>triggered()</signal>
+   <receiver>btnExportAccounts</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>301</y>
     </hint>
    </hints>
   </connection>
